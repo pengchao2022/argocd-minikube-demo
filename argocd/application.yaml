@@ -10,7 +10,7 @@ spec:
   
   # Git 仓库信息（需要你先创建 GitHub 仓库）
   source:
-    repoURL: https://github.com/YOUR_USERNAME/argocd-minikube-web.git
+    repoURL: https://github.com/pengchao2022/argocd-minikube-demo.git
     targetRevision: HEAD  # 使用最新提交
     path: manifests/      # Kubernetes 清单路径
     directory:
@@ -18,7 +18,7 @@ spec:
   
   # 目标集群（Minikube）
   destination:
-    server: https://kubernetes.default.svc  # 当前集群
+    server: https://127.0.0.1:53599 # 当前集群
     namespace: minikube-web
   
   # 同步策略
