@@ -2,51 +2,25 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: minikube-web-demo
-  namespace: argocd  # 部署到 argocd 命名空间
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  namespace: argocd
 spec:
   project: default
   
-  # Git 仓库信息（需要你先创建 GitHub 仓库）
+  # Git 仓库信息
   source:
     repoURL: https://github.com/pengchao2022/argocd-minikube-demo.git
-    targetRevision: HEAD  # 使用最新提交
-    path: manifests/      # Kubernetes 清单路径
-    directory:
-      recurse: true
+    targetRevision: HEAD
+    path: manifests/
   
   # 目标集群（Minikube）
   destination:
-    server: https://127.0.0.1:53599 # 当前集群
+    server: https://127.0.0.1:53599
     namespace: minikube-web
   
-  # 同步策略
+  # 同步策略（简化版本，避免兼容性问题）
   syncPolicy:
     automated:
-      prune: true         # 删除 Git 中不存在的资源
-      selfHeal: true      # 自动修复偏离状态
+      prune: true
+      selfHeal: true
     syncOptions:
-      - CreateNamespace=true  # 自动创建命名空间
-      - ApplyOutOfSyncOnly=true
-    
-    retry:
-      limit: 3
-      backoff:
-        duration: 5s
-        factor: 2
-        maxDuration: 3m
-  
-  # 健康检查
-  healthChecks:
-    - group: apps
-      kind: Deployment
-      name: minikube-web
-      namespace: minikube-web
-  
-  # 忽略不需要同步的资源
-  ignoreDifferences:
-    - group: apps
-      kind: Deployment
-      jsonPointers:
-        - /spec/replicas
+    - CreateNamespace=true
