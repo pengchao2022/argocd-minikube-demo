@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: minikube-web
+  labels:
+    name: minikube-web
+    environment: local
