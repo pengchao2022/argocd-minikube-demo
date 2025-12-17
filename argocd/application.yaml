@@ -14,7 +14,7 @@ spec:
   
   # 目标集群（Minikube）
   destination:
-    server: https://127.0.0.1:53599
+    server: https://kubernetes.default.svc
     namespace: minikube-web
   
   # 同步策略（简化版本，避免兼容性问题）
