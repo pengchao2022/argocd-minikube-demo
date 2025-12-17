@@ -6,7 +6,7 @@ metadata:
   labels:
     app: minikube-web
 spec:
-  replicas: 8 # 本地环境1个副本足够
+  replicas: 18 # 本地环境1个副本足够
   selector:
     matchLabels:
       app: minikube-web
