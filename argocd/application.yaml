@@ -9,7 +9,7 @@ spec:
   # Git 仓库信息
   source:
     repoURL: https://github.com/pengchao2022/argocd-minikube-demo.git
-    targetRevision: HEAD
+    targetRevision: main
     path: manifests/
   
   # 目标集群（Minikube）
