@@ -3,16 +3,39 @@ kind: Kustomization
 
 namespace: minikube-web
 
+# 1. 基础资源（移除 configmap.yaml）
 resources:
   - namespace.yaml
-  - configmap.yaml
-  - deployment.yaml
+  - deployment.yaml    # 注意：这里引用更新后的 deployment.yaml
   - service.yaml
 
+# 2. 自动从 website/ 生成 ConfigMap（关键！）
+configMapGenerator:
+  - name: web-content
+    files:
+      - ../website/index.html    # 引用上一级目录的 website 文件夹
+
+# 3. 自动更新 Deployment 引用
+replacements:
+  - source:
+      kind: ConfigMap
+      name: web-content          # 引用上面生成的 ConfigMap
+      fieldPath: metadata.name   # 获取 ConfigMap 的实际名称（带哈希）
+    targets:
+      - select:
+          kind: Deployment
+          name: simple-web       # Deployment 名称
+        fieldPaths:
+          - spec.template.spec.volumes.0.configMap.name
+        options:
+          create: true           # 如果字段不存在则创建
+
+# 4. 通用标签
 commonLabels:
   app: minikube-web
   managed-by: argocd
 
+# 5. 镜像设置
 images:
   - name: nginx
     newTag: alpine
