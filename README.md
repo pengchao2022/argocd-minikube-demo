@@ -15,6 +15,15 @@ In this demo, I will show you how to create an application using argocd
     - kubectl port-forward svc/argocd-server -n argocd 8888:443
     - kubectl port-forward svc/minikube-web-service -n minikube-web 8081:80
 
+
+- using the kubectl command to check the application status
+```shell
+kubectl get application -n argocd
+```
+- screenshot looks like:
+
+![argo-app](./argo-app.png)
+
 ## Usage
 
 - Here's the application in argo looks like
