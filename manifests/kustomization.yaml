@@ -13,7 +13,7 @@ resources:
 configMapGenerator:
   - name: web-content
     files:
-      - ../website/index.html    # 引用上一级目录的 website 文件夹
+      - website/index.html  # website 文件夹
 
 # 3. 自动更新 Deployment 引用
 replacements:
