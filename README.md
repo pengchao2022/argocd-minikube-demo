@@ -10,6 +10,12 @@ In this demo, I will show you how to create an application using argocd
 
 - argocd application.yaml with github repo and minikube server URL
 
+- Use kubectl to deploy the application
+
+```shell
+kubectl apply -f argocd/application.yaml -n argocd
+```
+
 - using the port-forword so that you can vist the argo console from localhost
 
     - kubectl port-forward svc/argocd-server -n argocd 8888:443
